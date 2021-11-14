@@ -1,7 +1,7 @@
 import { useState } from "react";
 import shortid from 'shortid';
 import Error from './Error.jsx';
-const Formulario = ({ actualizarGastos, gastos }) => {
+const Formulario = ({ guardarGasto, guardarCrearGasto }) => {
   // estado de gasto
   const [nombre, guardarNombre] = useState("");
   const [cantidad, guardarCantidad] = useState(0);
@@ -28,13 +28,15 @@ const Formulario = ({ actualizarGastos, gastos }) => {
       id: shortid.generate()
     };
     //Pasar el gasto al componente principal
-    actualizarGastos([
-      ...gastos,
-      gasto
-    ]);
+    guardarGasto(gasto);
+    guardarCrearGasto(true);
+    
     //Resetear el form
     guardarNombre('');
     guardarCantidad(0);
+    document.getElementById('nombre').value = '';
+    document.getElementById('cantidad').value = null;
+    
   };
   return (
     <form onSubmit={ agregarGasto } >
@@ -42,6 +44,7 @@ const Formulario = ({ actualizarGastos, gastos }) => {
       { error ? <Error mensaje="Ambos campos son obligatorios o el gasto que ha introducido es incorrecto " /> : null }
       <div className="campo">
         <input
+          id="nombre"
           type="text"
           className="u-full-width"
           placeholder="Ej. Transporte"
@@ -50,6 +53,7 @@ const Formulario = ({ actualizarGastos, gastos }) => {
       </div>
       <div className="campo">
         <input
+          id="cantidad"
           type="number"
           className="u-full-width"
           placeholder="Ej. 300"

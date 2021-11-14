@@ -1,10 +1,13 @@
-const Gasto = ( {gasto} ) => {
-  return(
-    <div>
-      <p> { gasto.nombre } </p>
-      <p> { gasto.cantidad } </p>
-    </div>
+const Gasto = ({ gasto }) => {
+  const { nombre, cantidad } = gasto;
+  return (
+    <li className="gastos">
+      <p>
+        {nombre}
+        <span className="gasto"> $ {cantidad} </span>
+      </p>
+    </li>
   );
-}
+};
 
 export default Gasto;
